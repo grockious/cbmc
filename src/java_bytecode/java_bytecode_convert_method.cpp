@@ -35,6 +35,7 @@ Author: Daniel Kroening, kroening@kroening.com
 #include "bytecode_info.h"
 #include "java_types.h"
 #include "java_utils.h"
+#include "java_string_library_preprocess.h"
 #include "java_utils.h"
 
 #include <limits>
@@ -1408,6 +1409,11 @@ codet java_bytecode_convert_methodt::convert_instructions(
           symbol.name,
           symbol_table);
 
+        // functions of the String libraries can have code
+        // generated for them
+        symbol.value=string_preprocess.code_for_function(
+          id, to_code_type(symbol.type), loc, symbol_table);
+
         symbol_table.add(symbol);
       }
 
@@ -1436,7 +1442,7 @@ codet java_bytecode_convert_methodt::convert_instructions(
 
       // Replacing call if it is a function of the Character library,
       // returning the same call otherwise
-      c=character_preprocess.replace_character_call(call);
+      c=string_preprocess.replace_character_call(call);
 
       if(!use_this)
       {
@@ -2647,7 +2653,7 @@ void java_bytecode_convert_method(
   message_handlert &message_handler,
   size_t max_array_length,
   safe_pointer<ci_lazy_methodst> lazy_methods,
-  const character_refine_preprocesst &character_refine)
+  const java_string_library_preprocesst &string_preprocess)
 {
   static const std::unordered_set<std::string> methods_to_ignore
   {
@@ -2677,7 +2683,7 @@ void java_bytecode_convert_method(
     message_handler,
     max_array_length,
     lazy_methods,
-    character_refine);
+    string_preprocess);
 
   java_bytecode_convert_method(class_symbol, method);
 }
