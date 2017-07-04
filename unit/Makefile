@@ -6,6 +6,7 @@ SRC = unit_tests.cpp \
       analyses/does_remove_const/is_type_at_least_as_const_as.cpp \
       catch_example.cpp \
       analyses/call_graph.cpp \
+      java_bytecode/java_bytecode_convert_class/convert_abstract_class.cpp \
       solvers/refinement/string_constraint_generator_valueof/is_digit_with_radix.cpp \
       solvers/refinement/string_constraint_generator_valueof/get_numeric_value_from_character.cpp \
       # Empty last line
@@ -18,7 +19,9 @@ include ../src/common
 cprover.dir:
 	$(MAKE) $(MAKEARGS) -C ../src
 
-LIBS += ../src/ansi-c/ansi-c$(LIBEXT) \
+LIBS += ../src/java_bytecode/java_bytecode$(LIBEXT) \
+        ../src/miniz/miniz$(OBJEXT) \
+        ../src/ansi-c/ansi-c$(LIBEXT) \
         ../src/cpp/cpp$(LIBEXT) \
         ../src/json/json$(LIBEXT) \
         ../src/linking/linking$(LIBEXT) \
