@@ -5,6 +5,7 @@ SRC = unit_tests.cpp \
       analyses/does_remove_const/does_type_preserve_const_correctness.cpp \
       analyses/does_remove_const/is_type_at_least_as_const_as.cpp \
       catch_example.cpp \
+      analyses/call_graph.cpp \
       # Empty last line
 
 INCLUDES= -I ../src/ -I.
